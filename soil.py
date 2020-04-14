@@ -12,6 +12,7 @@ GPIO.setup(channel, GPIO.IN)
 def callback(channel):
         global count
         global t
+
         now = time.time();
         wet = GPIO.input(channel)
 
