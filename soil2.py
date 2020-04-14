@@ -4,23 +4,22 @@ import time
 
 #GPIO SETUP
 count = 0
-t = 0
+oldState = 0
 channel = 21
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(channel, GPIO.IN)
  
 def callback(channel):
         global count
-        global t
-        now = time.time();
-        wet = GPIO.input(channel)
+        global oldState
 
-        if wet and (now - t) > 1:
+        newState = GPIO.input(channel)
+
+        if newState and newState != oldState == 0 :
                 count = count + 1
                 print ("Water Detected - ", count)
 
-        t = now
- 
+        oldState = newState
 
 GPIO.add_event_detect(channel, GPIO.BOTH, bouncetime=300)  # let us know when the pin goes HIGH or LOW
 GPIO.add_event_callback(channel, callback)  # assign function to GPIO PIN, Run function on change
